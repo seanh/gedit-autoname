@@ -66,17 +66,17 @@ class AutonamePlugin(GObject.Object, Gedit.WindowActivatable):
         filename = f"{datetimestr} {excerpt}.txt"
         new_path = os.path.join(self.desktop_path, filename)
 
-        if new_path == getattr(document, "autoname_plugin_last_renamed_to", None):
-            return
-
         try:
             os.rename(original_path, new_path)
         except FileNotFoundError:
             pass
 
         document.set_location(Gio.file_new_for_path(new_path))
+
+        if new_path != getattr(document, "autoname_plugin_last_renamed_to", None):
+            notify(f"Renamed to: {filename}")
+
         document.autoname_plugin_last_renamed_to = new_path
-        notify(f"Renamed to: {filename}")
 
     def maybe_delete(self, document):
         if not self.is_autonamed(document):
