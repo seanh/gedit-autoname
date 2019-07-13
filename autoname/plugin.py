@@ -70,9 +70,6 @@ class AutonamePlugin(GObject.Object, Gedit.WindowActivatable):
 
         document.set_location(Gio.file_new_for_path(new_path))
 
-        if new_path != getattr(document, "autoname_plugin_last_renamed_to", None):
-            notify(f"Renamed to: {filename}")
-
         document.autoname_plugin_last_renamed_to = new_path
 
     def maybe_delete(self, document):
@@ -85,7 +82,6 @@ class AutonamePlugin(GObject.Object, Gedit.WindowActivatable):
         if not self.excerpt(document):
             try:
                 os.remove(path)
-                notify(f"Deleted: {filename}")
             except FileNotFoundError:
                 pass
 
@@ -119,11 +115,3 @@ class AutonamePlugin(GObject.Object, Gedit.WindowActivatable):
                 words.append(safe_word)
 
         return " ".join(words)[:200]
-
-
-def notify(message):
-    os.system(
-        "notify-send -i gedit -u low 'Autoname plugin' '{message}'".format(
-            message=message.replace("'", "'\\''")
-        )
-    )
