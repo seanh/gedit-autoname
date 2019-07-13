@@ -70,3 +70,8 @@ TODO
   etc to the filename as necessary.
 
 - [ ] The directory where new files are created (`~/Desktop`) should be configurable.
+
+- [ ] It should generate the excerpt from the first line of the file that's
+  capable of producing an excerpt (e.g. not a blank line) and not take any text
+  from following lines. That'll make nicer filenames and work for things like
+  markdown headings.
