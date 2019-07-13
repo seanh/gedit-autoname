@@ -31,9 +31,6 @@ class AutonamePlugin(GObject.Object, Gedit.WindowActivatable):
         for handler_id in self.window.autoname_plugin_handler_ids:
             self.window.disconnect(handler_id)
 
-    def do_update_state(self):
-        pass
-
     def tab_added(self, window, tab):
         self.maybe_set_name(tab.get_document())
 
