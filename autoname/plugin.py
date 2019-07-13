@@ -14,9 +14,7 @@ class AutonamePlugin(GObject.Object, Gedit.WindowActivatable):
     def __init__(self):
         GObject.Object.__init__(self)
         self.desktop_path = os.path.expanduser("~/Desktop/")
-        self.path_regex = re.compile(
-            "^" + self.desktop_path + r"\d\d\d\d-\d\d-\d\d-\d\d-\d\d-\d\d.*\.txt$"
-        )
+        self.path_regex = re.compile("^" + self.desktop_path + r"\d{14} .*\.txt$")
 
     def do_activate(self):
         self.window.autoname_plugin_handler_ids = [
@@ -44,8 +42,8 @@ class AutonamePlugin(GObject.Object, Gedit.WindowActivatable):
         if not self.is_unnamed(document):
             return
 
-        datetimestr = datetime.datetime.now().strftime("%Y-%m-%d-%H-%M-%S")
-        filename = f"{datetimestr} Untitled Document.txt"
+        datetimestr = datetime.datetime.now().strftime("%Y%m%d%H%M%S")
+        filename = f"{datetimestr} Untitled.txt"
         path = os.path.join(self.desktop_path, filename)
         document.set_location(Gio.file_new_for_path(path))
 
@@ -59,7 +57,7 @@ class AutonamePlugin(GObject.Object, Gedit.WindowActivatable):
         if not excerpt:
             return
 
-        datetimestr = os.path.split(original_path)[1][: len("YYYY-MM-DD-HH-MM-SS")]
+        datetimestr = os.path.split(original_path)[1][: len("YYYYMMDDHHMMSS")]
         filename = f"{datetimestr} {excerpt}.txt"
         new_path = os.path.join(self.desktop_path, filename)
 

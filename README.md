@@ -5,12 +5,12 @@ gedit-autoname
 [gedit](https://wiki.gnome.org/Apps/Gedit)'s "Untitled Document 1" with automatically generated filenames.
 
 * When you open a new window or tab it'll open a file named
-  `~/Desktop/YYYY-MM-DD-HH-MM-SS Untitled Document.txt`,
+  `~/Desktop/YYYYMMDDHHMMSS Untitled.txt`,
   instead of the default behavior of opening an unnamed file and requiring you
   to pick a file name when you try to save it.
 
   You won't be asked for a filename when you save the file, it'll just save it to
-  `~/Desktop/YYYY-MM-DD-HH-MM-SS Untitled Document.txt`.
+  `~/Desktop/YYYYMMDDHHMMSS Untitled.txt`.
 
   You can still use <kbd>Save As…</kbd> if you want to rename the file yourself.
 
@@ -28,7 +28,7 @@ gedit-autoname
 
 * When you save a file it will be **renamed based on an excerpt of the contents** of the file.
 
-  You end up with filenames like `~/Desktop/YYYY-MM-DD-HH-MM-SS My Pancake Recipe.txt`,
+  You end up with filenames like `~/Desktop/YYYYMMDDHHMMSS My Pancake Recipe.txt`,
   so you can tell what the contents of each file are from the filename.
 
   This enables a fast plain text note-taking flow: launch gedit
@@ -40,14 +40,14 @@ gedit-autoname
 
 * If the file is empty when you save it, **the file will be deleted**.
 
-  So you don't end up with empty `~/Desktop/YYYY-MM-DD-HH-MM-SS Untitled Document.txt`
+  So you don't end up with empty `~/Desktop/YYYYMMDDHHMMSS Untitled.txt`
   files lying around.
 
   You can also cause the plugin to delete a file by opening it, deleting all
   its contents, saving, and closing the file.
 
 * It will only rename and delete files that match the
-  `~/Desktop/YYYY-MM-DD-HH-MM-SS *.txt` pattern, so it won't touch files you've
+  `~/Desktop/YYYYMMDDHHMMSS *.txt` pattern, so it won't touch files you've
   named yourself.
 
 
@@ -65,7 +65,7 @@ Then in gedit go to <kbd>Preferences</kbd> → <kbd>Plugins</kbd> and enable the
 TODO
 ----
 
-- [ ] When creating a `~/Desktop/YYYY-MM-DD-HH-MM-SS Untitled Document.txt`
+- [ ] When creating a `~/Desktop/YYYYMMDDHHMMSS Untitled.txt`
   file it should check whether the file already exists and append ` 1`, ` 2`
   etc to the filename as necessary.
 
