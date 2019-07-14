@@ -51,7 +51,7 @@ class AutonamePlugin(GObject.Object, Gedit.WindowActivatable):
         if not self.is_autonamed(document):
             return
 
-        original_path = document.get_location().get_path()
+        original_path = document.get_file().get_location().get_path()
         title = self.title(document)
 
         if not title:
@@ -74,7 +74,7 @@ class AutonamePlugin(GObject.Object, Gedit.WindowActivatable):
         if not self.is_autonamed(document):
             return
 
-        path = document.get_location().get_path()
+        path = document.get_file().get_location().get_path()
         filename = os.path.split(path)[1]
 
         if not self.title(document):
