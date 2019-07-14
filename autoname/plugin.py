@@ -39,7 +39,7 @@ class AutonamePlugin(GObject.Object, Gedit.WindowActivatable):
         self.maybe_delete(tab.get_document())
 
     def maybe_set_name(self, document):
-        if not self.is_unnamed(document):
+        if not document.is_untitled():
             return
 
         datetimestr = datetime.datetime.now().strftime("%Y%m%d%H%M%S")
@@ -82,12 +82,6 @@ class AutonamePlugin(GObject.Object, Gedit.WindowActivatable):
                 os.remove(path)
             except FileNotFoundError:
                 pass
-
-    def is_unnamed(self, document):
-        if not document:
-            return False
-
-        return not document.get_location()
 
     def is_autonamed(self, document):
         if not document:
