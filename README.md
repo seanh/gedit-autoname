@@ -24,8 +24,10 @@ gedit-autoname
   doesn't start autosaving an untitled document until you've saved it once
   manually, and chosen a filename).
 
-  (You have to enable autosaving under <kbd>Preferences</kbd> → <kbd>Editor</kbd> → <kbd>File Saving</kbd>.)
-
+  You have to enable autosaving under <kbd>Preferences</kbd> → <kbd>Editor</kbd> → <kbd>File Saving</kbd>.
+  Or better, install my [gedit-smart-autosave](https://github.com/seanh/gedit-smart-autosave/) plugin for
+  faster autosaving.
+  
 * When you save a file it will be **renamed based on the first line** of the file.
 
   You end up with filenames like `~/Desktop/YYYYMMDDHHMMSS My Pancake Recipe.txt`,
