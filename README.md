@@ -26,10 +26,17 @@ gedit-autoname
 
   (You have to enable autosaving under <kbd>Preferences</kbd> → <kbd>Editor</kbd> → <kbd>File Saving</kbd>.)
 
-* When you save a file it will be **renamed based on an excerpt of the contents** of the file.
+* When you save a file it will be **renamed based on the first line** of the file.
 
   You end up with filenames like `~/Desktop/YYYYMMDDHHMMSS My Pancake Recipe.txt`,
   so you can tell what the contents of each file are from the filename.
+
+  The title is derived from the first non-blank line of the file, truncated and
+  with non-ASCII characters and extraneous whitespace removed. This works well
+  with headings from markdown and similar markup languages, or simply with
+  files that use the opening line as a title. If your file doesn't contain a
+  title as such then the first line of text usually provides a reasonable
+  preview of the contents.
 
   This enables a fast plain text note-taking flow: launch gedit
   (I have `gedit --new-window` bound to <kbd><kbd>Super</kbd> + <kbd>g</kbd></kbd>),

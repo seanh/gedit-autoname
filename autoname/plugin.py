@@ -1,4 +1,4 @@
-import datetime, os, re
+import datetime, os, re, unicodedata
 
 from gi.repository import GObject, Gedit, Gio
 
@@ -52,13 +52,13 @@ class AutonamePlugin(GObject.Object, Gedit.WindowActivatable):
             return
 
         original_path = document.get_location().get_path()
-        excerpt = self.excerpt(document)
+        title = self.title(document)
 
-        if not excerpt:
+        if not title:
             return
 
         datetimestr = os.path.split(original_path)[1][: len("YYYYMMDDHHMMSS")]
-        filename = f"{datetimestr} {excerpt}.txt"
+        filename = f"{datetimestr} {title}.txt"
         new_path = os.path.join(self.desktop_path, filename)
 
         try:
@@ -77,7 +77,7 @@ class AutonamePlugin(GObject.Object, Gedit.WindowActivatable):
         path = document.get_location().get_path()
         filename = os.path.split(path)[1]
 
-        if not self.excerpt(document):
+        if not self.title(document):
             try:
                 os.remove(path)
             except FileNotFoundError:
@@ -98,18 +98,38 @@ class AutonamePlugin(GObject.Object, Gedit.WindowActivatable):
 
         return self.path_regex.match(document.get_location().get_path())
 
-    def excerpt(self, document):
+    def title(self, document):
         if not document:
-            return ""
+            return None
 
-        excerpt = document.get_text(
-            document.get_start_iter(), document.get_iter_at_offset(10000), False
+        text = document.get_text(
+            document.get_start_iter(), document.get_iter_at_offset(1000), False
         )
 
-        words = []
-        for word in excerpt.split():
-            safe_word = "".join([char for char in word if char.isalnum()])
-            if safe_word:
-                words.append(safe_word)
+        lines = text.split("\n")
 
-        return " ".join(words)[:200]
+        for line in lines:
+            slugified_line = slugify(line)[:80]
+            if not slugified_line:
+                continue
+            return slugified_line
+
+        return None
+
+
+def slugify(value):
+    """
+    Convert a string ``value`` into a filename-friendly ASCII string.
+
+    Based on Django's slugify() utility, but modified to allow capital letters,
+    to use spaces instead of -'s, and to remove the option to allow unicode
+    characters.
+
+    https://docs.djangoproject.com/en/2.2/ref/utils/#django.utils.text.slugify
+    """
+    value = str(value)
+    value = (
+        unicodedata.normalize("NFKD", value).encode("ascii", "ignore").decode("ascii")
+    )
+    value = re.sub(r"[^\w\s-]", "", value).strip()
+    return re.sub(r"[-\s]+", " ", value)
