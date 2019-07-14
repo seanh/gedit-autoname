@@ -45,7 +45,7 @@ class AutonamePlugin(GObject.Object, Gedit.WindowActivatable):
         datetimestr = datetime.datetime.now().strftime("%Y%m%d%H%M%S")
         filename = f"{datetimestr} Untitled.txt"
         path = os.path.join(self.desktop_path, filename)
-        document.set_location(Gio.file_new_for_path(path))
+        document.get_file().set_location(Gio.file_new_for_path(path))
 
     def maybe_rename(self, document):
         if not self.is_autonamed(document):
@@ -66,7 +66,7 @@ class AutonamePlugin(GObject.Object, Gedit.WindowActivatable):
         except FileNotFoundError:
             pass
 
-        document.set_location(Gio.file_new_for_path(new_path))
+        document.get_file().set_location(Gio.file_new_for_path(new_path))
 
         document.autoname_plugin_last_renamed_to = new_path
 
