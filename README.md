@@ -4,6 +4,8 @@ gedit-autoname
 `gedit-autoname` automatically names new files so you don't have to, replacing
 [gedit](https://wiki.gnome.org/Apps/Gedit)'s "Untitled Document 1" with automatically generated filenames.
 
+![Demo](demo.gif)
+
 * When you open a new window or tab it'll open a file named
   `~/Desktop/Untitled YYYYMMDDHHMMSS.txt`,
   instead of the default behavior of opening an unnamed file and requiring you
