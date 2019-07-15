@@ -43,6 +43,8 @@ gedit-autoname
   quit gedit (<kbd><kbd>Ctrl</kbd> + <kbd>q</kbd></kbd>). Each note will be
   saved with a sensible filename, and you never have to choose a filename
   yourself. No popup dialogs from gedit either.
+  With [gedit-smart-autosave](https://github.com/seanh/gedit-smart-autosave/)
+  you don't even need the <kbd><kbd>Ctrl</kbd> + <kbd>s</kbd></kbd>.
 
 * If the file is empty when you save it, **the file will be deleted**.
 
