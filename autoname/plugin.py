@@ -14,7 +14,7 @@ class AutonamePlugin(GObject.Object, Gedit.WindowActivatable):
     def __init__(self):
         GObject.Object.__init__(self)
         self.desktop_path = os.path.expanduser("~/Desktop/")
-        self.path_regex = re.compile("^" + self.desktop_path + r"\d{14} .*\.txt$")
+        self.path_regex = re.compile("^" + self.desktop_path + r".* \d{14}\.txt$")
 
     def do_activate(self):
         self.window.autoname_plugin_handler_ids = [
@@ -43,7 +43,7 @@ class AutonamePlugin(GObject.Object, Gedit.WindowActivatable):
             return
 
         datetimestr = datetime.datetime.now().strftime("%Y%m%d%H%M%S")
-        filename = f"{datetimestr} Untitled.txt"
+        filename = f"Untitled {datetimestr}.txt"
         path = os.path.join(self.desktop_path, filename)
         document.get_file().set_location(Gio.file_new_for_path(path))
 
@@ -57,8 +57,8 @@ class AutonamePlugin(GObject.Object, Gedit.WindowActivatable):
         if not title:
             return
 
-        datetimestr = os.path.split(original_path)[1][: len("YYYYMMDDHHMMSS")]
-        filename = f"{datetimestr} {title}.txt"
+        datetimestr = os.path.splitext(original_path)[0][-len("YYYYMMDDHHMMSS") :]
+        filename = f"{title} {datetimestr}.txt"
         new_path = os.path.join(self.desktop_path, filename)
 
         try:
