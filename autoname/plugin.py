@@ -87,10 +87,12 @@ class AutonamePlugin(GObject.Object, Gedit.WindowActivatable):
         if not document:
             return False
 
-        if not document.get_location():
+        location = document.get_file().get_location()
+
+        if not location:
             return False
 
-        return self.path_regex.match(document.get_location().get_path())
+        return self.path_regex.match(location.get_path())
 
     def title(self, document):
         if not document:
