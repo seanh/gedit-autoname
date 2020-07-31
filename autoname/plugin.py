@@ -43,7 +43,7 @@ class AutonamePlugin(GObject.Object, Gedit.WindowActivatable):
             return
 
         datetimestr = datetime.datetime.now().strftime("%Y%m%d%H%M%S")
-        filename = f"Untitled {datetimestr}.txt"
+        filename = "Untitled "+datetimestr+".txt"
         path = os.path.join(self.desktop_path, filename)
         document.get_file().set_location(Gio.file_new_for_path(path))
 
@@ -58,7 +58,7 @@ class AutonamePlugin(GObject.Object, Gedit.WindowActivatable):
             return
 
         datetimestr = os.path.splitext(original_path)[0][-len("YYYYMMDDHHMMSS") :]
-        filename = f"{title} {datetimestr}.txt"
+        filename = title+" "+datetimestr+".txt"
         new_path = os.path.join(self.desktop_path, filename)
 
         try:
