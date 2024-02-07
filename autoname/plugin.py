@@ -39,7 +39,7 @@ class AutonamePlugin(GObject.Object, Gedit.WindowActivatable):
         self.maybe_delete(tab.get_document())
 
     def maybe_set_name(self, document):
-        if not document.is_untitled():
+        if document.get_file().get_location():
             return
 
         datetimestr = datetime.datetime.now().strftime("%Y%m%d%H%M%S")
